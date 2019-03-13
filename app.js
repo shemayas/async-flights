@@ -3,12 +3,12 @@ const fs = require('fs'),
       readFile = Promise.promisify(fs.readFile),
       FlightsManager = require('./modules/FlightsManager'),
       EventEmitter = require('events'),
-      colors = require('colors');
+      colors = require('colors'),
+      { flights } = require('./flights.json');
 
 const event = new EventEmitter();
 (async () => {
-    // load json file
-    const { flights } = JSON.parse(await readFile('./flights.json', "utf8"));
+    
     let flightManager = new FlightsManager(),
         departures = [];
     
@@ -34,7 +34,7 @@ const event = new EventEmitter();
 
 const logFlight = ({origin, destination, number, departed, arrived}) => {
     console.log(
-        `Flight details: From ${origin} to ${destination}, flight number ${number}, departed ${formatDate(departed)} arrived: ${formatDate(arrived)}`.random
+        `Flight details: From ${origin} to ${destination}, flight number ${number}, departed ${formatDate(departed)} arrived: ${formatDate(arrived)}`.blue
     );
     
 }
